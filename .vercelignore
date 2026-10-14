@@ -1,0 +1,4 @@
+.git/
+.env*
+README.md
+THIRD_PARTY_NOTICES.md
