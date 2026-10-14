@@ -1,0 +1,23 @@
+{
+  "name": "career-counselor-desk",
+  "private": true,
+  "version": "2.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build && node scripts/build-service-worker.mjs",
+    "check": "tsc --noEmit --jsx react-jsx --moduleResolution bundler --module ESNext --target ES2022 --lib DOM,ES2022 --skipLibCheck --esModuleInterop src/main.tsx"
+  },
+  "dependencies": {
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "motion": "11.18.2",
+    "lucide-react": "0.468.0"
+  },
+  "devDependencies": {
+    "vite": "6.1.0",
+    "typescript": "5.7.3",
+    "@types/react": "18.3.18",
+    "@types/react-dom": "18.3.5"
+  }
+}

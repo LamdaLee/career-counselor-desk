@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <script>
+    // Keep relative assets and the installed app inside the /edu mount.
+    if (location.pathname === '/edu' || location.pathname.indexOf('/edu/') === 0) {
+      var appBase = document.createElement('base');
+      appBase.href = '/edu/';
+      document.head.appendChild(appBase);
+    }
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#C4A574">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="책상 위">
+  <title>책상 위 — 대화하며 배우는 직업상담</title>
+  <meta name="description" content="직업상담사 2급을 장면 하나로 만나는 책상. 용어를 먼저 외우지 않고, 문제를 쌓아 풀지 않아도 됩니다.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/u015.css">
+  <link rel="stylesheet" href="css/u028.css">
+  <link rel="stylesheet" href="css/u044.css">
+  <link rel="stylesheet" href="css/u070.css">
+  <link rel="stylesheet" href="css/room.css">
+  <script>
+    try {
+      var early = JSON.parse(localStorage.getItem('desk-lamp-v1') || 'null');
+      if (early && early.pace) document.documentElement.dataset.pace = early.pace;
+    } catch (e) {}
+  </script>
+<link rel="stylesheet" href="css/game.css">
+</head>
+<body>
+
+  <a class="skip" href="#scene-note">의뢰서로 이동</a>
+  <main class="studio" id="desk">
+    <header class="studio-top">
+      <a class="brand" href="./"><span class="brand-icon">冊</span><span>책상 위<small>나만의 작은 직업상담실</small></span></a>
+      <div class="top-actions"><span class="saved-status" id="save-status">● 이 브라우저에 저장</span><button class="quiet-btn" data-open="shelf">기록함 ↗</button><button class="install" id="install" hidden>집에 두기</button></div>
+    </header>
+    <div class="room-header"><div><p class="room-caption">CAREER COUNSELOR’S ROOM · 01</p><h1 id="hello">책상 불을 켜 둘게요</h1><p class="lead" id="lead">처음이어도 차례는 없어요. 오늘은 내담자 한 사람의 장면만 만나 봐요.</p></div><button class="mood-switch" id="mood-switch" aria-pressed="false"><span id="mood-icon" aria-hidden="true">☀</span> <span id="when">낮</span><small id="mood-action">밤으로 바꾸기</small></button></div>
+    <div class="case-selection"><span id="active-case-label">오늘의 내담자 · 민정 씨</span><button type="button" class="case-picker-button" data-open="cases">다른 의뢰서 고르기 ↗</button></div>
+    <section class="room-scene" aria-label="물건을 눌러 탐색하는 상담사의 책상">
+      <div class="room-wall"><div class="window" aria-hidden="true"><div class="landscape"></div><i></i><i></i></div><div class="wall-frame"><span>작은 질문이<br>새로운 길을 만든다.</span><small>ONE QUESTION AT A TIME</small></div><div class="wall-shelf" aria-hidden="true"><span class="tiny-book"></span><span class="tiny-book"></span><span class="tiny-book"></span><span class="tiny-vase"></span></div><div class="wall-shadow" aria-hidden="true"></div></div>
+      <div class="table-surface">
+        <div class="desk-lamp" aria-hidden="true"><span class="shade"></span><span class="arm"></span><span class="base"></span></div>
+        <div class="table-intro"><span class="room-tag">나의 상담 데스크</span><span>물건 하나를 집어 들어 보세요.</span></div>
+        <div class="desk-objects">
+          <button class="case-file" id="scene-note" data-open="scene"><span class="folder-tab">의뢰서 01</span><span class="file-clip" aria-hidden="true"></span><span class="file-paper"><span class="small-label">직업심리 · 오늘의 내담자</span><span class="file-title">사무실은<br>싫어요</span><span class="client-meta"><span class="client-avatar">민</span><span>민정 씨 <small>32세 · 진로 탐색</small></span></span><span class="file-quote">“손으로 뭔가를 만들 때가<br>훨씬 나은 것 같아요.”</span><span class="object-cta">의뢰서 펼치기 <b>↗</b></span></span></button>
+          <button class="writing-pad" data-open="say"><span class="pad-binding" aria-hidden="true"></span><span class="small-label">상담 메모</span><span class="pad-title">어떤 말을<br>건네 볼까요?</span><span class="handwritten">한 문장이면 충분해요.</span><span class="paper-lines" aria-hidden="true"></span><span class="object-cta">빈 종이에 써 보기 <b>↗</b></span><span class="desk-pencil" aria-hidden="true"></span></button>
+          <div class="right-objects"><button class="timer-card" data-open="pace"><span class="small-label">오늘 머무는 시간</span><span class="clock-face" aria-hidden="true"><i></i></span><span class="timer-value" id="pace-chip-label">12분</span><span id="pace-chip-hint">말해보기</span><span class="tiny-hint">시간은 자유롭게 바꿔요 ↗</span></button><button class="theory-book" data-open="theory"><span>COUNSELING NOTES</span><b>흥미, 적성,<br>그리고 가치</b><small>필요할 때 펼치는 이론 ↗</small></button></div>
+        </div>
+        <div class="desk-bottom"><div class="discovery"><span class="small-label">오늘 발견한 조각</span><div id="concept-chips"><span>○ 흥미</span><span>○ 적성</span><span>○ 가치</span></div></div><button class="cup" id="cup" aria-label="찻잔으로 잠깐 쉬기"><span class="tea"></span></button><div class="scraps" id="scraps" aria-label="책상 위에 둔 쪽지"></div></div>
+      </div>
+      <div class="cabinet"><button class="drawer-handle" data-open="drawer"><span class="drawer-name">01 / 이론 서랍</span><span class="handle-bar"></span><span>이론 뭉치 꺼내기 ↗</span></button><button class="drawer-handle record-drawer" data-open="shelf"><span class="drawer-name">02 / 상담 기록</span><span class="handle-bar"></span><span>남겨 둔 말 꺼내기 ↗</span></button></div>
+    </section>
+    <footer class="room-footer"><span><i></i> 정해진 순서는 없어요. 궁금한 물건부터.</span><span>장면을 읽고 · 말을 건네고 · 이론을 연결해요</span></footer>
+    <div class="creator-footer"><div class="creator-signature"><span class="creator-star" aria-hidden="true">✦</span><div><span>만든 사람 · <strong>Shaula</strong></span><small>흩어진 생각을 잇는 작은 도구를 만듭니다.</small></div></div><div class="creator-actions"><button type="button" class="creator-info" data-open="about">만든 사람 · 출처</button><a class="support-link" href="https://buymeacoffee.com/shaula" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">☕</span> 커피로 응원하기 ↗</a></div></div>
+    <div class="desk-message" id="desk-message" role="status" hidden></div>
+  </main>
+  <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="집어 든 종이" inert>
+    <div class="sheet-bar"><span id="sheet-label">의뢰서 01</span>
+    </div>
+    <div class="sheet-scroll" id="sheet-scroll">
+      <div id="conversation" hidden><div class="conversation-head"><span class="client-avatar">민</span><div><b>민정 씨와 이야기하기</b><small>장면 기반 상담 연습 · AI 없이 작동해요</small></div><span class="conversation-tag">진로 탐색</span></div><div id="dialogue" role="log" aria-live="polite"></div><div class="concept-feedback" id="concept-feedback" hidden></div></div>
+
+
+    <article class="scene" id="scene" data-anchor="scene">
+      <p class="eyebrow">직업심리 · 장면</p>
+      <h2>사무실은 싫어요</h2>
+      <p>민정 씨는 서른둘이에요. 가족은 사무직이 안정적이라고 하고, 민정 씨는 앉아서 하는 일이 숨이 막힌다고 해요. 손으로 뭔가를 고치거나 만들 때가 낫다고 말합니다. 무엇을 잘할 수 있는지는 아직 이야기가 없어요.</p>
+      <p>여기서 상담사가 “현실형이시네요”라고 이름부터 붙이면, 민정 씨의 말은 유형 하나로 접힙니다. 상담에서는 그 이름보다 민정 씨의 구체적인 경험과 원하는 조건을 더 들어 볼 수 있어요.</p>
+      <p class="quiet">아직 외울 표는 없어요. 한 문장 안에 하고 싶은 것, 할 수 있는 것, 가족이 중요하다고 한 것이 섞여 있다는 것만 보이면 됩니다.</p>
+    <button class="primary-action" data-open="say">민정 씨에게 말 건네기 →</button><button class="text-action" data-open="theory">관련 이론 먼저 펼치기</button></article>
+
+    <section class="section" id="cases"><h2>오늘은 누구의 이야기를 들어볼까요?</h2><p class="hint">다섯 과목, 다섯 명의 새 창작 사례예요. 순서는 없고 내담자마다 대화와 작성 중인 메모가 따로 남아요.</p><div id="case-list" class="case-list"></div><p class="content-basis">기출이나 교재 문항을 변형한 복원 문제가 아닙니다. 개념 설명은 공식 자료를 근거로 새로 작성했고, 인물·상황·질문·반응은 창작했습니다.</p></section>
+    <section class="section" id="case-theory" hidden></section>
+    <section class="section" id="pace" data-anchor="pace" aria-labelledby="pace-title">
+      <h2 id="pace-title">오늘은 여기까지만 해도 돼요</h2>
+      <p class="hint">고르지 않으면 12분짜리로 두었어요. 짧다고 부족해지지 않아요.</p>
+      <!-- Lucian UX/UI Prompt #015 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#015 -->
+      <div class="ux u015">
+        <div class="u015-grp" role="radiogroup" aria-label="오늘 머무는 시간">
+          <span class="u015-frame" aria-hidden="true"></span>
+          <button class="u015-opt" type="button" role="radio" aria-checked="false" data-p="4" data-pace="look">
+            <span class="u015-dot" aria-hidden="true"></span>
+            <span class="u015-ic" style="--g:linear-gradient(140deg,#C4B6A6,#8A7C70)" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4.5l3 2"/></svg></span>
+            <span class="u015-txt"><b>들여다보기</b><small>장면만 읽고 일어나도 돼요</small></span>
+            <span class="u015-price"><b>4분</b><small>장면만</small></span>
+          </button>
+          <button class="u015-opt" type="button" role="radio" aria-checked="true" data-p="12" data-pace="speak">
+            <span class="u015-dot" aria-hidden="true"></span>
+            <span class="u015-ic" style="--g:linear-gradient(140deg,#E2A88A,#A65B3C)" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 19V6.5A1.5 1.5 0 0 1 6.5 5H16l3 3v11a1.5 1.5 0 0 1-1.5 1.5H6.5A1.5 1.5 0 0 1 5 19z"/><path d="M16 5v3h3M8 12h8M8 16h5"/></svg></span>
+            <span class="u015-txt"><b>말해보기</b><small>읽고, 상담사의 말 한 문장</small></span>
+            <span class="u015-price"><b>12분</b><small>한 문장</small></span>
+          </button>
+          <button class="u015-opt" type="button" role="radio" aria-checked="false" data-p="25" data-pace="stay">
+            <span class="u015-dot" aria-hidden="true"></span>
+            <span class="u015-ic" style="--g:linear-gradient(140deg,#8FCBB0,#3F6F58)" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 4v2M8 10h8l-1 8H9l-1-8zM9 20h6"/><path d="M5 10h14"/></svg></span>
+            <span class="u015-txt"><b>앉아있기</b><small>이유를 펼치고 문장을 남겨요</small></span>
+            <span class="u015-price"><b>25분</b><small>이유까지</small></span>
+          </button>
+        </div>
+        <p class="u015-cta" aria-live="polite"><span class="u015-sel">오늘은 말해보기</span><b class="u015-sum">12분이면 돼요</b></p>
+      </div>
+      <script>
+        (function () {
+          var root = document.currentScript.previousElementSibling;
+          var opts = Array.prototype.slice.call(root.querySelectorAll('.u015-opt'));
+          var frame = root.querySelector('.u015-frame');
+          var sel = root.querySelector('.u015-sel');
+          var sum = root.querySelector('.u015-sum');
+          function place(o) {
+            frame.style.top = o.offsetTop + 'px';
+            frame.style.height = o.offsetHeight + 'px';
+          }
+          function openWhy() {
+            var q = document.querySelector('.u044 .u044-it:first-child .u044-q');
+            if (q && q.getAttribute('aria-expanded') !== 'true') q.click();
+          }
+          function choose(o, focus) {
+            opts.forEach(function (x) {
+              var on = x === o;
+              x.setAttribute('aria-checked', String(on));
+              x.tabIndex = on ? 0 : -1;
+            });
+            place(o);
+            var name = o.querySelector('.u015-txt b').firstChild.textContent.trim();
+            var p = +o.dataset.p;
+            sel.textContent = '오늘은 ' + name;
+            sum.textContent = p + '분이면 돼요';
+            document.body.dataset.pace = o.dataset.pace;
+            document.documentElement.dataset.pace = o.dataset.pace;
+            if (o.dataset.pace === 'stay') openWhy();
+            root.dispatchEvent(new CustomEvent('pace-change', { bubbles: true, detail: { pace: o.dataset.pace } }));
+            if (focus) o.focus();
+          }
+          opts.forEach(function (o, i) {
+            o.addEventListener('click', function () { choose(o); });
+            o.addEventListener('keydown', function (e) {
+              var d = (e.key === 'ArrowDown' || e.key === 'ArrowRight') ? 1 : (e.key === 'ArrowUp' || e.key === 'ArrowLeft') ? -1 : 0;
+              if (d) { e.preventDefault(); choose(opts[(i + d + opts.length) % opts.length], true); }
+            });
+          });
+          function placeOn() {
+            var on = opts.filter(function (x) { return x.getAttribute('aria-checked') === 'true'; })[0];
+            if (on) place(on);
+          }
+          window.addEventListener('resize', placeOn);
+          window.addEventListener('load', placeOn);
+          frame.style.transition = 'none';
+          choose(opts.filter(function (x) { return x.getAttribute('aria-checked') === 'true'; })[0] || opts[1]);
+          requestAnimationFrame(function () { requestAnimationFrame(function () { frame.style.transition = ''; }); });
+        })();
+      </script>
+    </section>
+
+    <section class="section why" id="why" data-anchor="scene" aria-labelledby="why-title">
+      <h2 id="why-title">이름은 필요할 때 펼쳐요</h2>
+      <p class="hint">접힌 채로 두어도 장면은 이미 본 거예요. 개념 설명은 장면과 연결해서 살펴봅니다.</p>
+      <p class="soft-note">오늘은 읽기만 해도 돼요. 아래는 넘기거나, 궁금할 때만 펼치면 됩니다.</p>
+      <p class="stay-note">이유는 하나만이라도 펼쳐 두었어요. 문장은 여전히 하나만 남기면 돼요.</p>
+      <!-- Lucian UX/UI Prompt #044 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#044 -->
+      <div class="ux u044">
+        <div class="u044-it">
+          <button class="u044-q" type="button" aria-expanded="false"><span class="u044-n">01</span><span class="u044-t">흥미와 적성은 왜 갈라야 하나요</span><span class="u044-pm" aria-hidden="true"></span></button>
+          <div class="u044-body" role="region"><div><div class="u044-a"><p>하고 싶은 것은 흥미, 해 낼 수 있는 가능성은 적성이에요. 같이 가다가 갈라질 때가 많습니다. 흥미만 보면 일이 버겁고, 적성만 보면 잘한다는 이유로 하기 싫은 일에 남습니다. 다음 질문은 유형 이름이 아니라, 어떤 장면에서 손이 가는지입니다.</p><a href="#say">이 구분으로 한 문장 쓰기 <i aria-hidden="true">→</i></a></div></div></div>
+        </div>
+        <div class="u044-it">
+          <button class="u044-q" type="button" aria-expanded="false"><span class="u044-n">02</span><span class="u044-t">가족이 말한 안정은 무엇인가요</span><span class="u044-pm" aria-hidden="true"></span></button>
+          <div class="u044-body" role="region"><div><div class="u044-a"><p>안정, 보수, 체면은 대개 가치예요. 민정 씨의 가치인지 가족의 가치인지는 아직 모릅니다. 가치를 흥미처럼 들으면, 가족의 문장이 진로가 됩니다. 물을 것은 가족 말과 따로, 민정 씨가 놓치기 싫은 것입니다.</p><a href="#say">이 구분으로 한 문장 쓰기 <i aria-hidden="true">→</i></a></div></div></div>
+        </div>
+        <div class="u044-it">
+          <button class="u044-q" type="button" aria-expanded="false"><span class="u044-n">03</span><span class="u044-t">상담 기록에는 무엇을 남기면 되나요</span><span class="u044-pm" aria-hidden="true"></span></button>
+          <div class="u044-body" role="region"><div><div class="u044-a"><p>이 장면을 상담 기록으로 정리해 볼 수 있어요. 여기서는 “현실형이라 기술직을 추천한다”보다, 앉아서 할 때 어떤 점이 힘든지, 손으로 할 때 무엇이 나은지를 묻는 문장이 상담 기록에 가깝습니다. 아래 자료집에서 관련 개념과 출처를 함께 확인할 수 있어요.</p><a href="#say">이 구분으로 한 문장 쓰기 <i aria-hidden="true">→</i></a></div></div></div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          var root = document.currentScript.previousElementSibling;
+          var items = Array.prototype.slice.call(root.querySelectorAll('.u044-it'));
+          var qs = items.map(function (it) { return it.querySelector('.u044-q'); });
+          var uid = 'u044-' + Math.random().toString(36).slice(2, 7);
+          var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          items.forEach(function (it, i) {
+            var q = qs[i], body = it.querySelector('.u044-body');
+            q.id = uid + '-q' + i; body.id = uid + '-a' + i;
+            q.setAttribute('aria-controls', body.id); body.setAttribute('aria-labelledby', q.id);
+          });
+          function set(it, open) {
+            it.classList.toggle('open', open);
+            it.querySelector('.u044-q').setAttribute('aria-expanded', String(open));
+            it.querySelector('.u044-a a').tabIndex = open ? 0 : -1;
+          }
+          items.forEach(function (it, i) {
+            set(it, it.classList.contains('open'));
+            qs[i].addEventListener('click', function () {
+              var willOpen = !it.classList.contains('open');
+              items.forEach(function (o) { if (o !== it) set(o, false); });
+              set(it, willOpen);
+            });
+            qs[i].addEventListener('keydown', function (e) {
+              var n = e.key === 'ArrowDown' ? i + 1 : e.key === 'ArrowUp' ? i - 1 : e.key === 'Home' ? 0 : e.key === 'End' ? qs.length - 1 : -2;
+              if (n === -2) return;
+              e.preventDefault();
+              qs[(n + qs.length) % qs.length].focus();
+            });
+            it.querySelector('.u044-a a').addEventListener('click', function (e) {
+              e.preventDefault();
+              var ta = document.querySelector('.u028-ta');
+              if (!ta) return;
+              if (window.openDesk) window.openDesk('say');
+              requestAnimationFrame(function () {
+                ta.focus();
+                ta.scrollIntoView({ block: 'center', behavior: reduce ? 'auto' : 'smooth' });
+              });
+            });
+          });
+        })();
+      </script>
+    </section>
+
+    <section class="section say" id="say" data-anchor="say" aria-labelledby="say-title">
+      <h2 id="say-title">상담사가 꺼낼 말</h2>
+      <p class="hint">빈 칸이 막막하면 왼쪽 두 단추로 시작만 빌려요. 정답은 넣지 않고, 자리는 일부러 짧게 두었어요. 남긴 말은 다음에 와도 여기 있습니다.</p>
+      <!-- Lucian UX/UI Prompt #028 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#028 -->
+      <div class="ux u028">
+        <div class="u028-thread">
+          <span class="u028-av" aria-hidden="true"></span>
+          <p class="u028-bub"><b>책상 위</b>민정 씨에게 다음에 무엇을 물어볼까요? 맞는 문장이 아니라, 상담사가 꺼낼 말이면 됩니다.</p>
+        </div>
+        <div class="u028-box">
+          <textarea class="u028-ta" rows="1" placeholder="한두 문장이면 충분해요" aria-label="상담사가 꺼낼 말"></textarea>
+          <div class="u028-foot">
+            <button class="u028-tool" type="button" aria-label="문장 시작 넣기" title="문장 시작 넣기"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="3"/><circle cx="9.5" cy="10" r="1.6"/><path d="M5 17l4.5-4.5 3 3 2.5-2.5L19.5 17"/></svg></button>
+            <button class="u028-tool" type="button" aria-label="구분 이름 넣기" title="구분 이름 넣기"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.5"/><path d="M15.5 12v1.3a2.2 2.2 0 0 0 4.4 0V12a8 8 0 1 0-3 6.2"/></svg></button>
+            <span class="u028-ring" aria-hidden="true"><svg viewBox="0 0 30 30"><circle class="bg" cx="15" cy="15" r="12"/><circle class="fg" cx="15" cy="15" r="12"/></svg><span class="u028-left"></span></span>
+            <span class="u028-sep" aria-hidden="true"></span>
+            <button class="u028-send" type="button">말 건네기 →</button>
+          </div>
+        </div>
+        <div class="question-starters"><button data-prompt="어떤 일을 할 때 즐겁거나 계속 해 보고 싶으세요?">흥미를 물어보기</button><button data-prompt="직접 만들거나 고쳐서 잘 해냈던 경험이 있나요?">경험을 물어보기</button><button data-prompt="가족의 의견과 별개로, 일에서 가장 중요하게 여기는 것은 무엇인가요?">가치를 물어보기</button></div><span class="u028-sr" aria-live="polite"></span>
+      </div>
+      <script>
+        (function () {
+          var root = document.currentScript.previousElementSibling;
+          var ta = root.querySelector('.u028-ta');
+          var left = root.querySelector('.u028-left');
+          var send = root.querySelector('.u028-send');
+          var sr = root.querySelector('.u028-sr');
+          var tools = root.querySelectorAll('.u028-tool');
+          var MAX = 140;
+          var starters = ['앉아서 할 때 어떤 점이 힘든지 물어볼게요. ', '흥미와 적성을 나눠 보면, '];
+          function grow() {
+            var h = ta.style.height;
+            ta.style.transition = 'none';
+            ta.style.height = '24px';
+            var need = Math.min(144, ta.scrollHeight);
+            ta.style.height = h || '24px';
+            void ta.offsetHeight;
+            ta.style.transition = '';
+            ta.style.height = need + 'px';
+            ta.style.overflowY = ta.scrollHeight > 144 ? 'auto' : 'hidden';
+          }
+          function count() {
+            var n = Array.from(ta.value).length;
+            var rest = MAX - n;
+            root.style.setProperty('--p', Math.min(1, n / MAX).toFixed(3));
+            root.classList.toggle('is-near', rest <= 20);
+            root.classList.toggle('is-over', rest < 0);
+            left.textContent = rest;
+            var bad = ta.value.trim().length === 0 || rest < 0;
+            send.setAttribute('aria-disabled', String(bad));
+            send.disabled = bad;
+            if (rest === 20 || rest === 0 || rest === -1) sr.textContent = rest >= 0 ? rest + '자 남았어요' : '글자 수를 넘었어요';
+          }
+          function insert(extra) {
+            var start = ta.selectionStart == null ? ta.value.length : ta.selectionStart;
+            var end = ta.selectionEnd == null ? ta.value.length : ta.selectionEnd;
+            ta.value = ta.value.slice(0, start) + extra + ta.value.slice(end);
+            var pos = start + extra.length;
+            ta.setSelectionRange(pos, pos);
+            grow(); count();
+            ta.focus();
+          }
+          tools[0].addEventListener('click', function () { insert((window.DeskActivePrompts || starters)[0]); });
+          tools[1].addEventListener('click', function () { insert((window.DeskActivePrompts || starters)[1]); });
+          ta.addEventListener('input', function () { grow(); count(); });
+          send.addEventListener('click', function () {
+            if (send.getAttribute('aria-disabled') === 'true') { ta.focus(); return; }
+            var text = ta.value;
+            document.dispatchEvent(new CustomEvent('thread-save', { detail: { text: text } }));
+            ta.value = '';
+            grow(); count();
+            sr.textContent = '말을 남겨 두었어요';
+            send.textContent = '남겨 두었어요';
+            setTimeout(function () { if (root.isConnected) send.textContent = '말 건네기 →'; }, 1400);
+          });
+          grow(); count();
+        })();
+      </script>
+    </section>
+
+    <hr class="hair">
+
+    <section class="section" id="shelf" data-anchor="say" aria-labelledby="shelf-title">
+      <h2 id="shelf-title">남겨 둔 말</h2>
+      <p class="shelf-empty" id="shelf-empty">아직 없어요. 없어도 오늘 온 것으로 충분해요.</p>
+      <ul class="shelf-list" id="shelf-list"></ul>
+    </section>
+
+    <section class="section" id="drawer" data-anchor="drawer" aria-labelledby="drawer-title">
+      <h2 id="drawer-title">서랍</h2>
+      <p class="hint">필기는 다섯 과목이에요. 직업심리, 직업상담 및 취업지원, 직업정보, 노동시장, 고용노동관계법규. 실기는 직업상담 실무를 글로 씁니다. 오늘은 직업심리 한 장면이고, 같은 책상이 나머지에도 쓰여요.</p>
+      <ul class="drawer">
+        <li>지인이 그 회사 괜찮대 <small>직업정보</small></li>
+        <li>이 동네는 일이 없대 <small>노동시장</small></li>
+        <li>월급을 다음 달로 미룬대 <small>고용노동관계법규</small></li>
+        <li>처음 온 사람에게 먼저 묻는 말 <small>직업상담 및 취업지원</small></li>
+      </ul>
+      <p class="aside-note">서랍은 할 일 목록이 아니에요. 필요할 때 꺼내면 되고, 오늘 안 열어도 자리는 유지됩니다.</p>
+      <p class="aside-note">핸드폰에서는 브라우저 메뉴의 홈 화면에 추가로 두면, 다음에 앱처럼 열립니다. 아이폰은 공유 단추 안에 그 항목이 있어요.</p>
+    <details class="calendar">
+      <summary>올해 시험은 어디쯤인가요</summary>
+      <p>2026년 10월 14일 기준이에요. 올해 필기 회차는 지났고, 3회 실기는 10월 24일부터 11월 13일 사이입니다. 실기 빈자리 접수는 10월 18일부터 19일이에요. 해당되면 <a href="https://www.q-net.or.kr/crf005.do?id=crf00503s02&amp;jmCd=9511">큐넷 직업상담사 2급</a>에서 보고, 아니면 넘겨도 됩니다. 다음 필기 날짜는 적지 않았어요. 공고 전에 짐작한 날은 부담만 되니까요.</p>
+      <p>세부 시험 방식과 출제 범위는 <a href="https://www.q-net.or.kr/cst006.do?code=1202&amp;gId=99&amp;gSite=&amp;id=cst00601" target="_blank" rel="noopener noreferrer">큐넷의 현재 출제기준</a>과 수험자 안내에서 확인해요. 이 자료집은 상담 연습에 연결되는 핵심 개념을 담고 있습니다.</p>
+    </details>
+    <p class="foot">이 장면은 기출 문장이 아니라, 흥미·적성·가치를 상담 자리에서 가르는 연습이에요. 정답 자료가 아닙니다.</p>
+    </section>
+    <section class="section" id="library" hidden aria-labelledby="library-title">
+      <div class="library-heading"><p class="small-label">상담사의 이론 자료집</p><h2 id="library-title">궁금한 조각부터 꺼내요</h2><p class="hint">공식 공개자료를 확인해 새로 쓴 설명과 상담 연습 질문이에요.</p><span class="library-date">기준 확인 · 2026.10.14</span></div>
+      <div class="library-toolbar"><label for="library-search">개념 찾기</label><input id="library-search" type="search" placeholder="흥미, 경청, 임금, 실업률…" autocomplete="off"><div class="library-filters" id="library-filters" role="group" aria-label="과목 선택"></div></div>
+      <p id="library-count" class="library-count" role="status"></p><div id="library-cards" class="library-cards"></div>
+      <details class="library-sources"><summary>자료의 출처와 사용 방식 보기</summary><p>핵심 설명은 출처의 사실과 개념을 새로 요약했어요. 예시 질문은 이 앱을 위해 작성했습니다. 검사 문항, 기출문제, 유료 교재, 기관 그림은 수록하지 않았어요.</p><p>확인일은 자료를 대조한 날이에요. 자동 갱신되지는 않으므로 법규·서비스·분류의 변경은 공식 원문에서 다시 확인합니다. 해외 자료는 개념 이해를 돕는 참고자료이며 국내 자격의 출제기준과 같지 않습니다.</p><div id="library-source-list"></div></details>
+      <button class="text-action" data-open="drawer">← 이론 서랍으로</button>
+    </section>
+    <section class="section" id="about" hidden aria-labelledby="about-title">
+      <p class="small-label">작은 상담실을 만든 사람</p><div class="about-creator"><span class="about-star" aria-hidden="true">✦</span><div><h2 id="about-title">안녕하세요, Shaula입니다.</h2><p>기록이 버겁거나 생각이 흩어질 때,<br>잠시 머물 수 있는 작은 도구를 만듭니다.</p></div></div>
+      <div class="creator-bio"><p>교육 운영을 하면서 기록과 생각을 돕는 작은 웹앱을 만들고 있습니다. 먼저 적고 잠시 멈추는 <strong>Pause &amp; Ponder</strong>, 흩어진 생각을 잇는 <strong>별이음</strong>을 만들고, 배운 내용을 익숙한 비유로 풀어 남깁니다.</p><p>이 책상은 장면을 읽고, 말을 건네고, 궁금한 이론을 꺼내 볼 수 있는 직업상담사 학습 공간입니다. 정해진 순서 없이 한 조각부터 살펴볼 수 있도록 만들었습니다.</p><a class="creator-site" href="https://shaula.kr/" target="_blank" rel="noopener noreferrer">Shaula의 글과 도구 보기 ↗</a><p class="bio-credit">만든 사람 소개는 Shaula의 공개 후원 페이지를 바탕으로 정리했습니다.</p></div>
+      <div class="support-panel"><h3>이 작은 책상을 응원해 주세요</h3><p>응원은 작은 도구를 계속 만들고 다듬는 작업을 이어가는 데 쓰입니다.</p><a class="support-link" href="https://buymeacoffee.com/shaula" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">☕</span> Shaula에게 커피로 응원하기 ↗</a></div>
+      <div class="about-materials"><h3>학습 자료와 출처</h3><p>5개 과목의 이론 카드 31개를 공식·연구기관 공개자료 21개와 대조해 새로 정리했습니다. 카드마다 출처 링크가 있고, 상담 예시 질문은 이 앱을 위해 작성했습니다.</p><p class="library-date">기준 확인 · 2026년 10월 14일</p><p>법규는 해당 시행법, 분류는 현재 적용판을 확인했습니다. 자료는 자동 갱신되지 않으며, 변경 사항은 공식 원문에서 확인할 수 있습니다.</p><button class="primary-action" type="button" data-open="library">이론 자료집과 카드별 출처 보기 →</button><details class="about-source-details"><summary>참고한 기관과 자료 21개 보기</summary><div id="about-source-list"></div></details></div>
+      <p class="content-basis">공개 학습 콘텐츠는 공식 자료로 개념을 확인해 새로 작성했습니다. 유료 교재의 본문·암기법·문항·해설·구성을 옮기거나 일부 수정해 게시하지 않습니다. 상담 인물·상황·질문·반응은 새 창작이며 기출 복원 문제가 아닙니다.</p>
+      <div class="about-license"><h3>자료 사용과 UI 라이선스</h3><p>학습 설명은 공개된 사실과 개념을 새로 요약했습니다. 검사 문항·기출문제·유료 교재 원문·기관 그림은 사용하지 않았습니다. 원문 자료의 권리는 각 출처에 있으며, 앱에 원문 전체의 재사용 권한이 포함되는 것은 아닙니다.</p><p>UI 일부는 <a href="https://lucianlabs.dev/uxui-prompt/" target="_blank" rel="noopener noreferrer">Lucian UX/UI Prompt</a>의 MIT 라이선스 구성요소를 사용합니다. MIT License © 2026 Seokwoooo. 원본 라이선스 표기는 소스에 유지했습니다.</p><p>액자 손글씨: <a href="https://github.com/google/fonts/tree/main/ofl/nanumpenscript" target="_blank" rel="noopener noreferrer">나눔손글씨 펜 · NHN Corporation</a> · SIL Open Font License 1.1. <a href="fonts/OFL-NanumPenScript.txt" target="_blank" rel="noopener noreferrer">글꼴 라이선스 보기</a></p><p>기획·제작: Shaula · 상담 반응: 준비된 장면과 키워드 기반 · 기록: 이 브라우저에 저장</p></div>
+    </section>
+    </div>
+    <div class="sheet-footer"><button class="sheet-close" id="sheet-close" type="button"><span aria-hidden="true">←</span> 책상으로 돌아가기</button></div>
+  </div>
+
+  <!-- Lucian UX/UI Prompt #070 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#070 -->
+  <div class="ux u070">
+    <div class="u070-zone" role="region" aria-label="알림" tabindex="-1">
+      <p class="u070-empty">알림이 여기에 쌓여요</p>
+      <div class="u070-live" aria-live="polite"></div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      var root = document.currentScript.previousElementSibling;
+      var zone = root.querySelector('.u070-zone'), empty = root.querySelector('.u070-empty'), live = root.querySelector('.u070-live');
+      var rm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var ICON = { ok: '<svg viewBox="0 0 18 18"><path d="M4 9.4l3.2 3.2L14 5.6"/></svg>', err: '<svg viewBox="0 0 18 18"><path d="M9 5v5M9 13h.01"/></svg>', info: '<svg viewBox="0 0 18 18"><path d="M3.5 4.5h11v7h-6l-3 2.5v-2.5h-2z"/></svg>', wait: '<i></i>' };
+      var K = {
+        ok: ['var(--ux-mint)', '책상 위에 남겨 두었어요', '다음에 와도 이 문장은 여기 있어요'],
+        err: ['var(--ux-danger)', '남기지 못했어요', '한 문장만 다시 적어 주세요', '다시'],
+        info: ['var(--ux-accent)', '장면이 그대로 있어요', '사무실은 싫어요', '보기'],
+        wait: ['var(--ux-warn)', '남겨 두는 중…', '책상 위']
+      };
+      var list = [], open = false, DUR = 4500, seq = 0;
+      function layout() {
+        var acc = 0;
+        list.forEach(function (t, i) {
+          var el = t.el;
+          el.classList.toggle('back', !open && i > 0);
+          if (open) { el.style.setProperty('--y', -acc + 'px'); el.style.setProperty('--s', 1); el.style.setProperty('--o', 1); acc += el.offsetHeight + 8; }
+          else { el.style.setProperty('--y', -(i * 14) + 'px'); el.style.setProperty('--s', (1 - i * 0.06).toFixed(2)); el.style.setProperty('--o', i > 2 ? 0 : 1); }
+          el.style.zIndex = 50 - i;
+          el.inert = !open && i > 0;
+        });
+        empty.style.opacity = list.length ? '0' : '1';
+        zone.style.pointerEvents = list.length ? 'auto' : 'none';
+      }
+      function remove(t, dir) {
+        var i = list.indexOf(t);
+        if (i < 0) return;
+        list.splice(i, 1);
+        t.el.classList.add('leave');
+        if (dir) { t.el.style.setProperty('--dir', dir); t.el.classList.add('side'); }
+        setTimeout(function () { t.el.remove(); }, 450);
+        layout();
+      }
+      function push(k) {
+        var d = K[k], el = document.createElement('div');
+        el.className = 'u070-t enter';
+        el.style.setProperty('--c', d[0]);
+        el.setAttribute('role', k === 'err' ? 'alert' : 'status');
+        el.innerHTML = '<span class="u070-ic" aria-hidden="true">' + ICON[k] + '</span><span class="u070-tx"><b></b><small></small></span>' + (d[3] ? '<button class="u070-act" type="button"></button>' : '') + '<button class="u070-x" type="button" aria-label="알림 닫기"><svg viewBox="0 0 14 14"><path d="M3.5 3.5l7 7M10.5 3.5l-7 7"/></svg></button><span class="u070-bar" aria-hidden="true"></span>';
+        el.querySelector('b').textContent = d[1]; el.querySelector('small').textContent = d[2];
+        if (d[3]) el.querySelector('.u070-act').textContent = d[3];
+        var t = { el: el, left: DUR, id: ++seq, k: k };
+        zone.appendChild(el);
+        list.unshift(t);
+        void el.offsetWidth;
+        el.classList.remove('enter');
+        layout();
+        live.textContent = d[1];
+        el.querySelector('.u070-x').addEventListener('click', function () { remove(t); });
+        if (d[3]) el.querySelector('.u070-act').addEventListener('click', function () { remove(t); if (k === 'err') push('wait'); });
+        if (k === 'wait') {
+          t.left = Infinity;
+          setTimeout(function () {
+            if (!root.isConnected || list.indexOf(t) < 0) return;
+            el.style.setProperty('--c', K.ok[0]);
+            el.querySelector('.u070-ic').innerHTML = ICON.ok;
+            el.querySelector('b').textContent = '책상 위에 남겨 두었어요';
+            el.querySelector('small').textContent = '다음에 와도 이 문장은 여기 있어요';
+            live.textContent = '책상 위에 남겨 두었어요';
+            t.left = DUR;
+          }, rm ? 300 : 1800);
+        }
+        var sx = 0, dx = 0, down = false;
+        el.addEventListener('pointerdown', function (e) { if (e.target.closest('button')) return; down = true; sx = e.clientX; dx = 0; el.setPointerCapture(e.pointerId); el.classList.add('drag'); });
+        el.addEventListener('pointermove', function (e) { if (!down) return; dx = e.clientX - sx; el.style.setProperty('--dx', dx + 'px'); el.style.setProperty('--o', Math.max(0.2, 1 - Math.abs(dx) / 260)); });
+        var end = function () { if (!down) return; down = false; el.classList.remove('drag'); if (Math.abs(dx) > 90) remove(t, dx > 0 ? 1 : -1); else { el.style.setProperty('--dx', '0px'); layout(); } };
+        el.addEventListener('pointerup', end); el.addEventListener('pointercancel', end);
+      }
+      var last = performance.now();
+      (function loop(now) {
+        if (!root.isConnected) return;
+        var dt = now - last; last = now;
+        if (!open) list.slice().forEach(function (t, i) {
+          if (i > 0 || t.left === Infinity) return;
+          t.left -= dt;
+          t.el.style.setProperty('--left', Math.max(0, t.left / DUR).toFixed(3));
+          if (t.left <= 0) remove(t);
+        });
+        requestAnimationFrame(loop);
+      })(last);
+      function setOpen(v) { if (open === v) return; open = v; layout(); }
+      zone.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') setOpen(true); });
+      zone.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse' && !zone.contains(document.activeElement)) setOpen(false); });
+      zone.addEventListener('focusin', function () { setOpen(true); });
+      zone.addEventListener('focusout', function (e) { if (!zone.contains(e.relatedTarget)) setOpen(false); });
+      zone.addEventListener('click', function (e) { if (!e.target.closest('button') && list.length > 1) setOpen(!open); });
+      root.pushToast = push;
+    })();
+  </script>
+  <script src="js/room.js"></script>
+<script src="js/library-data.js"></script>
+<script src="js/cases-data.js"></script>
+<script src="js/game.js"></script>
+<script src="js/library.js"></script>
+<script src="js/about.js"></script>
+</body>
+</html>
