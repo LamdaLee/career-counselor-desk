@@ -93,3 +93,36 @@
   .discovery{width:100%}.discovery #concept-chips{font-size:16px}.desk-bottom{gap:22px}.cup{margin-left:8px}.cabinet{grid-template-columns:1fr;padding:10px 12px 14px;gap:10px}.cabinet .drawer-handle{flex-direction:row;justify-content:space-between;min-height:76px;padding:15px 20px}.cabinet .drawer-name{font-size:17px}.cabinet .handle-bar{width:55px;height:9px}.creator-actions{grid-template-columns:1fr;gap:10px}.about-creator{align-items:flex-start}.about-star{width:44px;height:44px;font-size:27px}.about-creator h2{font-size:23px}
   .sheet-scroll{padding:24px 20px}.theory-bundles{grid-template-columns:1fr;gap:15px}.bundle{min-height:0;padding:20px 22px 20px 27px}.bundle>b{font-size:20px}.bundle>small{font-size:16px}.library-filter{font-size:15px;padding:11px 12px}.sheet-footer .sheet-close{font-size:19px}.u015-opt{gap:8px}.u015-txt{min-width:0}.u015-price{flex:none}.u015-dot{display:none}
 }
+
+/* A readable handwritten note, and lighting with a clear day/night state. */
+@font-face{font-family:'Desk Handwriting';src:url('../fonts/NanumPenScript-Regular.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap}
+.room-wall{height:200px}
+.wall-frame{left:42%;top:25px;width:280px;border-width:6px;padding:18px 14px;transform:rotate(-1.5deg)}
+.wall-frame span{display:block;font-family:'Desk Handwriting',cursive;font-size:34px;line-height:1.25;font-weight:400;color:#425b44}
+.wall-frame small{font-size:9px;letter-spacing:1.2px;margin-top:10px;color:#6b7058}
+.mood-switch{min-height:60px;min-width:136px;font-size:17px;font-weight:650;border:2px solid #93a483;box-shadow:0 3px 0 #c8cfba}
+.mood-switch small{font-size:13px;font-weight:500}
+#mood-icon{font-size:25px;vertical-align:middle}
+body.lamplit{background:#202d32!important}
+body.lamplit .studio-top{border-color:#536361}
+body.lamplit .brand,body.lamplit .room-header h1{color:#f4ecd5}
+body.lamplit .brand small,body.lamplit .room-header .lead,body.lamplit .saved-status,body.lamplit .room-caption,body.lamplit .room-footer,body.lamplit .creator-signature,body.lamplit .creator-signature small{color:#d1d8c6}
+body.lamplit .quiet-btn{background:#344c47;color:#f4ecd5;border-color:#748a77}
+body.lamplit .mood-switch{background:#f2d39b;color:#443924;border-color:#e5bc75;box-shadow:0 3px 0 #9b7b4d}
+body.lamplit .room-scene{border-color:#53635d;box-shadow:0 20px 45px #07151b55}
+body.lamplit .room-wall{background:linear-gradient(120deg,#293b45,#41514e);border-bottom-color:#5c6957}
+body.lamplit .landscape{background:linear-gradient(#14283f,#354e62)}
+body.lamplit .landscape:before{content:'';position:absolute;width:27px;height:27px;right:20px;top:25px;border-radius:50%;background:#fff2c5;box-shadow:0 0 24px #fbe8b866}
+body.lamplit .landscape:after{background:#324c50;box-shadow:85px 10px 0 #263f47}
+body.lamplit .wall-shadow{background:#f8d49b20}
+body.lamplit .wall-frame{background:#fff0cd;border-color:#a9895d;box-shadow:0 0 35px #fbd39824}
+body.lamplit .table-surface{background:radial-gradient(ellipse at 12% 0,#ffe3a5e6,transparent 72%),repeating-linear-gradient(0deg,transparent 0 69px,#55351f12 70px,transparent 73px),#ad875f}
+body.lamplit .desk-lamp .shade{background:linear-gradient(100deg,#d5b67a,#8e784e)}
+body.lamplit .desk-lamp:after{content:'';position:absolute;top:45px;left:1px;width:63px;height:8px;border-radius:50%;background:#ffedb1;box-shadow:0 10px 40px 16px #ffdb8b88}
+body.lamplit .creator-footer{border-color:#536361}
+@media(max-width:760px){
+  .room-wall{height:184px}.wall-frame{left:50%;right:auto;top:23px;width:min(280px,calc(100% - 40px));transform:translateX(-50%) rotate(-1.5deg);padding:16px 12px}
+  .wall-frame span{font-size:32px}.wall-frame small{font-size:9px}.window{left:-28px;opacity:.7}.wall-shelf{display:none}
+  .mood-switch{font-size:17px;padding:11px 17px;min-height:62px}.mood-switch small{font-size:14px}
+}
+@media(prefers-reduced-motion:no-preference){body,.room-wall,.landscape,.table-surface,.wall-frame,.mood-switch{transition:background .3s,color .3s,box-shadow .3s}}

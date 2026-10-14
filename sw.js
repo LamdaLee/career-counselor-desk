@@ -1,5 +1,5 @@
 var CACHE_PREFIX = 'career-counselor-desk-';
-var CACHE = CACHE_PREFIX + 'v10';
+var CACHE = CACHE_PREFIX + 'v11';
 var FILES = [
   './',
   './index.html',
@@ -16,6 +16,8 @@ var FILES = [
   './js/library-data.js',
   './js/library.js',
   './js/about.js',
+  './fonts/NanumPenScript-Regular.ttf',
+  './fonts/OFL-NanumPenScript.txt',
   './icons/icon-180.png',
   './icons/icon-192.png',
   './icons/icon-512.png'

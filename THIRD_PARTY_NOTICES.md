@@ -17,3 +17,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ## Learning sources
 
 Learning cards contain newly written factual summaries and practice examples. Source references and usage notes are included in js/library-data.js and displayed in the app. No assessment items, paywalled textbook text, or institutional graphics are redistributed. No blanket license over third-party source materials is granted.
+
+## Nanum Pen Script
+
+Unmodified font by NHN Corporation (2010), distributed under the SIL Open Font License 1.1. Source: https://github.com/google/fonts/tree/main/ofl/nanumpenscript. Full copyright and license: fonts/OFL-NanumPenScript.txt.

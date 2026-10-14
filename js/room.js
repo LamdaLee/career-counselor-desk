@@ -30,12 +30,8 @@
   }
 
   function greet(state) {
-    var hour = new Date().getHours();
-    var part = hour < 11 ? '아침' : hour < 17 ? '낮' : hour < 21 ? '저녁' : '늦은 시간';
     var hello = document.getElementById('hello');
     var lead = document.getElementById('lead');
-    var when = document.getElementById('when');
-    when.textContent = part;
     if (!state.lastVisit) {
       hello.textContent = '책상 불을 켜 둘게요';
       lead.textContent = '처음이어도 차례는 없어요. 내담자 한 사람의 장면만 있고, 기본은 12분이에요. 장면만 읽고 일어나도 됩니다.';

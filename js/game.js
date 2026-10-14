@@ -121,7 +121,19 @@
   let messageTimer;
   $('#cup').addEventListener('click',()=>{const msg=$('#desk-message');msg.textContent='잠깐 쉬어도 괜찮아요. 돌아오면 이야기는 그대로 있어요.';msg.hidden=false;clearTimeout(messageTimer);messageTimer=setTimeout(()=>msg.hidden=true,6500);});
   const mood=$('#mood-switch');
-  if(storage.get('desk-game-lamp')==='on'){document.body.classList.add('lamplit');mood.setAttribute('aria-pressed','true');}
-  mood.addEventListener('click',()=>{const on=document.body.classList.toggle('lamplit');mood.setAttribute('aria-pressed',String(on));storage.set('desk-game-lamp',on?'on':'off');});
+  function setLighting(night) {
+    document.body.classList.toggle('lamplit',night);
+    mood.setAttribute('aria-pressed',String(night));
+    $('#when').textContent=night?'밤':'낮';
+    $('#mood-icon').textContent=night?'☾':'☀';
+    $('#mood-action').textContent=night?'낮으로 바꾸기':'밤으로 바꾸기';
+    mood.setAttribute('aria-label',(night?'밤':'낮')+' · '+(night?'낮으로 바꾸기':'밤으로 바꾸기'));
+  }
+  setLighting(storage.get('desk-game-lamp')==='on');
+  mood.addEventListener('click',()=>{
+    const night=!document.body.classList.contains('lamplit');
+    setLighting(night);
+    storage.set('desk-game-lamp',night?'on':'off');
+  });
   render();
 })();
