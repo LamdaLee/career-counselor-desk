@@ -1,4 +1,5 @@
-var CACHE = 'desk-game-v9';
+var CACHE_PREFIX = 'career-counselor-desk-';
+var CACHE = CACHE_PREFIX + 'v10';
 var FILES = [
   './',
   './index.html',
@@ -27,7 +28,7 @@ self.addEventListener('install', function (event) {
 
 self.addEventListener('activate', function (event) {
   event.waitUntil(caches.keys().then(function (keys) {
-    return Promise.all(keys.filter(function (key) { return key !== CACHE; }).map(function (key) { return caches.delete(key); }));
+    return Promise.all(keys.filter(function (key) { return key.indexOf(CACHE_PREFIX) === 0 && key !== CACHE; }).map(function (key) { return caches.delete(key); }));
   }));
   self.clients.claim();
 });
