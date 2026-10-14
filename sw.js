@@ -1,5 +1,5 @@
 var CACHE_PREFIX = 'career-counselor-desk-';
-var CACHE = CACHE_PREFIX + 'v11';
+var CACHE = CACHE_PREFIX + 'v12';
 var FILES = [
   './',
   './index.html',
@@ -13,6 +13,7 @@ var FILES = [
   './css/u070.css',
   './js/room.js',
   './js/game.js',
+  './js/cases-data.js',
   './js/library-data.js',
   './js/library.js',
   './js/about.js',

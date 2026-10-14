@@ -157,7 +157,7 @@
   document.addEventListener('thread-save', function (e) {
     var text = (e.detail.text || '').trim();
     if (!text) return;
-    state.threads.unshift({ text: text, at: Date.now(), scene: '사무실은 싫어요' });
+    state.threads.unshift({ text: text, at: Date.now(), scene: window.DeskActiveScene || '민정 씨 · 사무실은 싫어요' });
     if (state.threads.length > 8) state.threads.length = 8;
     persist();
     render();

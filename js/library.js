@@ -79,9 +79,10 @@
   const all=el('button','bundle library-all');all.type='button';all.append(el('span','','공식 자료집'),el('b','',`전체 ${data.cards.length}개 조각에서 찾기`),el('small','','개념 검색과 출처 확인 ↗'));
   all.addEventListener('click',()=>{group='all';search.value='';render();window.openDesk('library');});bundles.append(all);
   $('#drawer').insertBefore(bundles,$('.drawer'));
-  const note=el('p','library-scope','각 과목의 핵심 개념을 새로 정리한 자료집이에요. 상담 대화는 현재 민정 씨 사례 한 건이며, 이론 카드의 질문은 작성 연습용입니다.');$('#drawer').insertBefore(note,$('.drawer'));
+  const note=el('p','library-scope','각 과목의 핵심 개념을 새로 정리한 자료집이에요. 다섯 과목의 새 창작 내담자 사례를 골라 상담할 수 있고, 이론 카드의 질문은 작성 연습용입니다.');$('#drawer').insertBefore(note,$('.drawer'));
   const verified=el('button','text-action','출처와 함께 흥미·적성·가치 설명 보기 →');verified.type='button';verified.addEventListener('click',()=>{group='psychology';search.value='흥미 적성 가치';render();window.openDesk('library');});$('#why').append(verified);
   const list=$('#library-source-list');
   Object.entries(data.sources).forEach(([id,source])=>{const row=el('div','source-register');row.append(sourceLink(id),el('p','',source.basis),el('p','',source.use));list.append(row);});
+  window.openDeskLibrary=(selectedGroup='all',query='')=>{group=selectedGroup;search.value=query;render();window.openDesk('library');};
   render();
 })();
